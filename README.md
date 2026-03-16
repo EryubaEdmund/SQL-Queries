@@ -51,16 +51,6 @@ CREATE TABLE assignment.customers (
     membership_status VARCHAR(10)
 );
 
--- Products table
-CREATE TABLE assignment.products (
-    product_id     INT PRIMARY KEY,
-    product_name   VARCHAR(100),
-    category       VARCHAR(50),
-    price          DECIMAL(10, 2),
-    supplier       VARCHAR(100),
-    stock_quantity INT
-);
-
 -- Sales table (with foreign keys)
 CREATE TABLE assignment.sales (
     sale_id       INT PRIMARY KEY,
@@ -71,13 +61,6 @@ CREATE TABLE assignment.sales (
     total_amount  DECIMAL(10, 2),
     FOREIGN KEY (customer_id) REFERENCES assignment.customers(customer_id),
     FOREIGN KEY (product_id)  REFERENCES assignment.products(product_id)
-);
-
--- Inventory table
-CREATE TABLE assignment.inventory (
-    product_id     INT PRIMARY KEY,
-    stock_quantity INT,
-    FOREIGN KEY (product_id) REFERENCES assignment.products(product_id)
 );
 ```
 
@@ -109,16 +92,6 @@ VALUES
     (4,  'Jacob',    'Adams',    'andrew72@hotmail.com',        '246-459-1425x462',     '2023-02-10', 'Gold'),
     (17, 'James',    'Rodriguez','brownbrian@blair-sanford.com','8826047658',           '2022-11-25', 'Gold'),
     (18, 'Steven',   'Burnett',  'zblackburn@yahoo.com',        '(055)912-6726x1246',  '2020-01-28', 'Gold');
-
--- Insert products (sample)
-INSERT INTO assignment.products
-    (product_id, product_name, category, price, supplier, stock_quantity)
-VALUES
-    (1,  'Laptop',         'Electronics', 999.99,  'Dell',      50),
-    (2,  'Smartphone',     'Electronics', 799.99,  'Samsung',   150),
-    (6,  'Smart TV',       'Electronics', 1500.00, 'Samsung',   20),
-    (14, 'Tablet',         'Electronics', 400.00,  'Apple',     70),
-    (15, 'Smartwatch',     'Electronics', 199.99,  'Apple',     120);
 ```
 
 > **Key insight:** Column names should always be listed explicitly in `INSERT` statements. This makes queries resilient to future schema changes (e.g. adding a new column with a default value) and prevents silent data misalignment if column order ever shifts.
